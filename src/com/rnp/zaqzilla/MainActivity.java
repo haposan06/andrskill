@@ -1,26 +1,37 @@
 package com.rnp.zaqzilla;
 
+import java.util.Arrays;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.view.Menu;
+import android.view.Window;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
+import com.facebook.widget.LoginButton;
 
 public class MainActivity extends FragmentActivity {
 
     private boolean           isResumed = false;
     private UiLifecycleHelper helper;
 
+    private LoginButton       button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getActionBar().hide();
         setContentView(R.layout.activity_main);
         helper = new UiLifecycleHelper(this, callback);
         helper.onCreate(savedInstanceState);
+       /* button = (LoginButton) findViewById(R.id.login_button);
+        button.setReadPermissions(Arrays.asList("user_location",
+                "publish_actions"));*/
 
     }
 

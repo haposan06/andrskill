@@ -15,5 +15,8 @@
     <string name="title_activity_menu">MenuActivity</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
+    <string name="hello">Hello!</string>
+    <string name="welcome">welcome to Zaqzilla</string>
+    <string name="title_activity_status_view">StatusViewActivity</string>
 
 </resources>

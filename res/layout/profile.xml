@@ -5,20 +5,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+    <com.facebook.widget.ProfilePictureView
+        android:id="@+id/selection_profile_pic"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        android:padding="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="0.7"
         android:gravity="center_horizontal"
-        android:orientation="horizontal" >
+         
+        />
 
-        <com.facebook.widget.ProfilePictureView
-            android:id="@+id/selection_profile_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center_horizontal"
-            facebook:preset_size="small" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_weight="0.3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical" >
+
+        <!-- <com.facebook.widget.ProfilePictureView -->
+        <!-- android:id="@+id/selection_profile_pic" -->
+        <!-- android:layout_width="wrap_content" -->
+        <!-- android:layout_height="wrap_content" -->
+        <!-- android:layout_gravity="center" -->
+        <!-- android:gravity="center_horizontal" -->
+        <!-- facebook:preset_size="small" /> -->
 
         <TextView
             android:id="@+id/selection_user_name"
@@ -27,7 +40,21 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:textColor="#333"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/genderAndBirthday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="14sp" />
     </LinearLayout>
 
 </LinearLayout>

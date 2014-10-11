@@ -1,5 +1,7 @@
 package com.rnp.zaqzilla.fragments;
 
+import java.text.SimpleDateFormat;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -19,7 +21,9 @@ import com.rnp.zaqzilla.R;
 public class ProfileFragments extends Fragment {
 
     private ProfilePictureView     pictureView;
-    private TextView               textView;
+    private TextView               textName;
+    private TextView               textLocation;
+    private TextView               textGenderBirth;
     private UiLifecycleHelper      lifecycleHelper;
     private Session.StatusCallback callback = new Session.StatusCallback() {
 
@@ -70,9 +74,12 @@ public class ProfileFragments extends Fragment {
 
         pictureView = (ProfilePictureView) v
                 .findViewById(R.id.selection_profile_pic);
+        pictureView.setPresetSize(ProfilePictureView.CUSTOM);
         pictureView.setCropped(true);
 
-        textView = (TextView) v.findViewById(R.id.selection_user_name);
+        textName = (TextView) v.findViewById(R.id.selection_user_name);
+        textLocation = (TextView) v.findViewById(R.id.location);
+        textGenderBirth = (TextView) v.findViewById(R.id.genderAndBirthday);
 
         Session session = Session.getActiveSession();
         if (session != null && session.isOpened()) {
@@ -98,8 +105,22 @@ public class ProfileFragments extends Fragment {
                     public void onCompleted(GraphUser user, Response response) {
                         if (session == Session.getActiveSession()) {
                             if (user != null) {
-                                pictureView.setProfileId(user.getId());
-                                textView.setText(user.getName());
+
+                                try {
+                                    SimpleDateFormat format = new SimpleDateFormat(
+                                            "DD mm yyyy");
+
+                                    pictureView.setProfileId(user.getId());
+                                    textName.setText(user.getName());
+                                    /*
+                                     * textLocation.setText(user.getLocation()
+                                     * .getName());
+                                     */
+                                    textGenderBirth.setText(user.getProperty(
+                                            "gender").toString());
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
                             }
                         }
                         if (response.getError() != null) {

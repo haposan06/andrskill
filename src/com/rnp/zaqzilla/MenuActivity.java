@@ -35,7 +35,7 @@ public class MenuActivity extends FragmentActivity {
     private UiLifecycleHelper     helper;
 
     public enum Fragments {
-        PROFILE("Profile"), SHARE("Share to Fb"), TWITTER("Twitter Timeline"), LOGOUT(
+        PROFILE("Profile"), SHARE("Share to Facebook"), TWITTER("Twitter Timeline"), LOGOUT(
                 "Logout");
 
         private final String value;
@@ -72,7 +72,7 @@ public class MenuActivity extends FragmentActivity {
                 f = new ShareFragment();
                 break;
             case TWITTER:
-                f= new TimelineFragments();
+                f = new TimelineFragments();
                 break;
             default:
                 f = new ProfileFragments();
@@ -106,8 +106,8 @@ public class MenuActivity extends FragmentActivity {
 
                 View vx = super.getView(pos, v, p);
                 TextView tv = (TextView) vx.findViewById(android.R.id.text1);
-
-                tv.setTextColor(Color.BLUE);
+                // tv.setBackgroundResource(R.drawable.back);
+                tv.setTextColor(Color.WHITE);
                 return tv;
 
             }
@@ -145,7 +145,7 @@ public class MenuActivity extends FragmentActivity {
             @Override
             public void onDrawerClosed(View v) {
                 super.onDrawerClosed(v);
-                getActionBar().setTitle("Title");
+                getActionBar().setTitle(R.string.app_name);
                 invalidateOptionsMenu();
             }
 
