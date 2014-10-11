@@ -2,71 +2,26 @@ package com.rnp.zaqzilla;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
-import android.widget.TextView;
 
-import com.facebook.Request;
-import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
-import com.facebook.model.GraphUser;
 
 public class MainActivity extends FragmentActivity {
 
-    private static final int  SPLASH         = 0;
-    private static final int  SELECTION      = 1;
-    private static final int  FRAGMENT_COUNT = 2;
-    private Fragment[]        fragments      = new Fragment[FRAGMENT_COUNT];
-    private boolean           isResumed      = false;
+    private boolean           isResumed = false;
     private UiLifecycleHelper helper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         helper = new UiLifecycleHelper(this, callback);
         helper.onCreate(savedInstanceState);
 
-        FragmentManager manager = getSupportFragmentManager();
-        fragments[SPLASH] = manager.findFragmentById(R.id.splashFragment);
-        fragments[SELECTION] = manager.findFragmentById(R.id.selectionFragment);
-
-        FragmentTransaction tx = manager.beginTransaction();
-        for (int i = 0; i < fragments.length; i++) {
-            tx.hide(fragments[i]);
-        }
-        tx.commit();
-
-        /*
-         * // start facebook login
-         * Session.openActiveSession(this, true, new Session.StatusCallback() {
-         * @Override
-         * public void call(Session session, SessionState state,
-         * Exception exception) {
-         * if (session.isOpened()) {
-         * Request.newMeRequest(session,
-         * new Request.GraphUserCallback() {
-         * @Override
-         * public void onCompleted(GraphUser user,
-         * Response response) {
-         * // TODO Auto-generated method stub
-         * if (user != null) {
-         * TextView welcome = (TextView) findViewById(R.id.welcome);
-         * welcome.setText("Hello "
-         * + user.getName() + "!");
-         * }
-         * }
-         * }).executeAsync();
-         * }
-         * }
-         * });
-         */
     }
 
     @Override
@@ -103,9 +58,11 @@ public class MainActivity extends FragmentActivity {
         super.onResumeFragments();
         Session session = Session.getActiveSession();
         if (session != null && session.isOpened()) {
-            showFragment(SELECTION, false);
+
+            Intent intent = new Intent(this, MenuActivity.class);
+            this.startActivity(intent);
         } else {
-            showFragment(SPLASH, false);
+
         }
     }
 
@@ -131,29 +88,14 @@ public class MainActivity extends FragmentActivity {
             }
 
             if (state.isOpened()) {
-                showFragment(SELECTION, false);
+                /* showFragment(SELECTION, false); */
+                Intent intent = new Intent(this, MenuActivity.class);
+                startActivity(intent);
 
             } else if (state.isClosed()) {
-                showFragment(SPLASH, false);
+
             }
         }
-    }
-
-    private void showFragment(int index, boolean addToBackStack) {
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction tx = fm.beginTransaction();
-        for (int i = 0; i < fragments.length; i++) {
-            if (i == index)
-                tx.show(fragments[i]);
-            else
-                tx.hide(fragments[i]);
-
-        }
-        if (addToBackStack) {
-            tx.addToBackStack(null);
-        }
-        tx.commit();
-
     }
 
     private Session.StatusCallback callback = new Session.StatusCallback() {
@@ -163,8 +105,7 @@ public class MainActivity extends FragmentActivity {
                                                         Session session,
                                                         SessionState state,
                                                         Exception exception) {
-                                                    // TODO Auto-generated
-                                                    // method stub
+
                                                     onSessionStateChanged(
                                                             session, state,
                                                             exception);

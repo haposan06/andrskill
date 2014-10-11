@@ -4,7 +4,16 @@
     <string name="app_name">Zaqzilla</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="app_id" >770036919723813</string>
+    <string name="app_id">770036919723813</string>
     <string name="get_started">To get started, log in using Facebook</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
+    <string name="common_setting">Setting</string>
+    <string name="common_logout">Logout</string>
+    <string name="common_confirmation">Confirmation</string>
+    <string name="confirmation_message">Do you want to exit</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
 
 </resources>
