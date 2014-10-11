@@ -25,6 +25,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.rnp.zaqzilla.fragments.ProfileFragments;
 import com.rnp.zaqzilla.fragments.ShareFragment;
+import com.rnp.zaqzilla.fragments.TimelineFragments;
 
 public class MenuActivity extends FragmentActivity {
     private DrawerLayout          drawerLayout;
@@ -70,7 +71,9 @@ public class MenuActivity extends FragmentActivity {
             case SHARE:
                 f = new ShareFragment();
                 break;
-
+            case TWITTER:
+                f= new TimelineFragments();
+                break;
             default:
                 f = new ProfileFragments();
                 break;

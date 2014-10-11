@@ -119,7 +119,7 @@ int drawable facebook 0x7f020033
 int drawable ic_launcher 0x7f020034
 int drawable icon 0x7f020035
 int drawable title_bar_logo 0x7f020036
-int id action_settings 0x7f040032
+int id action_settings 0x7f040037
 int id bottom 0x7f040006
 int id box_count 0x7f040005
 int id btnShare 0x7f040031
@@ -151,13 +151,16 @@ int id com_facebook_usersettingsfragment_login_button 0x7f04002b
 int id com_facebook_usersettingsfragment_logo_image 0x7f040029
 int id com_facebook_usersettingsfragment_profile_name 0x7f04002a
 int id content_frame 0x7f040010
+int id createdAt 0x7f040036
 int id drawer_layout 0x7f04000f
+int id imageProfile 0x7f040033
 int id inline 0x7f040007
 int id large 0x7f040002
 int id left 0x7f04000a
 int id left_drawer 0x7f040011
+int id listView1 0x7f040032
 int id login_button 0x7f04000e
-int id logout 0x7f040033
+int id logout 0x7f040038
 int id normal 0x7f040001
 int id picker_subtitle 0x7f040021
 int id profile_name 0x7f04000d
@@ -167,10 +170,12 @@ int id selection_user_name 0x7f04002d
 int id small 0x7f040000
 int id splash_icon 0x7f04000c
 int id standard 0x7f040003
+int id status 0x7f040035
 int id textView1 0x7f04002e
 int id top 0x7f040008
 int id txtLink 0x7f040030
 int id txtStatus 0x7f04002f
+int id username 0x7f040034
 int layout activity_main 0x7f030000
 int layout activity_menu 0x7f030001
 int layout com_facebook_friendpickerfragment 0x7f030002
@@ -193,6 +198,7 @@ int layout selection 0x7f030012
 int layout share 0x7f030013
 int layout splash 0x7f030014
 int layout timeline 0x7f030015
+int layout twitter_list_layout 0x7f030016
 int menu main 0x7f090000
 int menu menu 0x7f090001
 int string action_settings 0x7f07001d

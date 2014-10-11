@@ -314,7 +314,7 @@ containing a value of this type.
         public static final int title_bar_logo=0x7f020036;
     }
     public static final class id {
-        public static final int action_settings=0x7f040032;
+        public static final int action_settings=0x7f040037;
         public static final int bottom=0x7f040006;
         public static final int box_count=0x7f040005;
         public static final int btnShare=0x7f040031;
@@ -346,13 +346,16 @@ containing a value of this type.
         public static final int com_facebook_usersettingsfragment_logo_image=0x7f040029;
         public static final int com_facebook_usersettingsfragment_profile_name=0x7f04002a;
         public static final int content_frame=0x7f040010;
+        public static final int createdAt=0x7f040036;
         public static final int drawer_layout=0x7f04000f;
+        public static final int imageProfile=0x7f040033;
         public static final int inline=0x7f040007;
         public static final int large=0x7f040002;
         public static final int left=0x7f04000a;
         public static final int left_drawer=0x7f040011;
+        public static final int listView1=0x7f040032;
         public static final int login_button=0x7f04000e;
-        public static final int logout=0x7f040033;
+        public static final int logout=0x7f040038;
         public static final int normal=0x7f040001;
         public static final int picker_subtitle=0x7f040021;
         public static final int profile_name=0x7f04000d;
@@ -362,10 +365,12 @@ containing a value of this type.
         public static final int small=0x7f040000;
         public static final int splash_icon=0x7f04000c;
         public static final int standard=0x7f040003;
+        public static final int status=0x7f040035;
         public static final int textView1=0x7f04002e;
         public static final int top=0x7f040008;
         public static final int txtLink=0x7f040030;
         public static final int txtStatus=0x7f04002f;
+        public static final int username=0x7f040034;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
@@ -390,6 +395,7 @@ containing a value of this type.
         public static final int share=0x7f030013;
         public static final int splash=0x7f030014;
         public static final int timeline=0x7f030015;
+        public static final int twitter_list_layout=0x7f030016;
     }
     public static final class menu {
         public static final int main=0x7f090000;
