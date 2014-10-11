@@ -87,7 +87,7 @@ int drawable com_facebook_list_divider 0x7f020014
 int drawable com_facebook_list_section_header_background 0x7f020015
 int drawable com_facebook_loginbutton_silver 0x7f020016
 int drawable com_facebook_logo 0x7f020017
-int drawable com_facebook_picker_default_separator_color 0x7f020035
+int drawable com_facebook_picker_default_separator_color 0x7f020036
 int drawable com_facebook_picker_item_background 0x7f020018
 int drawable com_facebook_picker_list_focused 0x7f020019
 int drawable com_facebook_picker_list_longpressed 0x7f02001a
@@ -112,11 +112,12 @@ int drawable com_facebook_tooltip_blue_xout 0x7f02002c
 int drawable com_facebook_top_background 0x7f02002d
 int drawable com_facebook_top_button 0x7f02002e
 int drawable com_facebook_usersettingsfragment_background_gradient 0x7f02002f
-int drawable desert 0x7f020030
-int drawable facebook 0x7f020031
-int drawable ic_launcher 0x7f020032
-int drawable icon 0x7f020033
-int drawable title_bar_logo 0x7f020034
+int drawable concert 0x7f020030
+int drawable desert 0x7f020031
+int drawable facebook 0x7f020032
+int drawable ic_launcher 0x7f020033
+int drawable icon 0x7f020034
+int drawable title_bar_logo 0x7f020035
 int id action_settings 0x7f040038
 int id bottom 0x7f040006
 int id box_count 0x7f040005

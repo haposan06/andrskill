@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="0.85"
-        android:background="@drawable/desert"
+        android:background="@drawable/concert"
         android:gravity="left"
         android:orientation="vertical" >
 
@@ -19,18 +19,17 @@
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="@string/hello"
-            android:textColor="#ffffff"
-            android:textSize="30sp"
+            android:textColor="#333"
+            android:textSize="36sp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/welcome"
-            android:textColor="#e1e1ef"
-            android:textSize="20sp"
             android:layout_marginLeft="10dp"
-             />
+            android:text="@string/welcome"
+            android:textColor="#333"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,7 +37,9 @@
         android:layout_height="0dp"
         android:layout_gravity="center_vertical"
         android:layout_weight="0.15"
-        android:gravity="center" >
+        android:gravity="center"
+        android:background="#000"
+         >
 
         <com.facebook.widget.LoginButton
             android:id="@+id/login_button"
