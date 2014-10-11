@@ -3,12 +3,13 @@ package com.rnp.zaqzilla;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.View;
@@ -19,10 +20,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MenuActivity extends Activity {
+import com.facebook.Session;
+import com.facebook.SessionState;
+import com.facebook.UiLifecycleHelper;
+import com.rnp.zaqzilla.fragments.ProfileFragments;
+import com.rnp.zaqzilla.fragments.ShareFragment;
+
+public class MenuActivity extends FragmentActivity {
     private DrawerLayout          drawerLayout;
     private ListView              listViewDrawer;
     private ActionBarDrawerToggle toggle;
+    private boolean               isResumed = false;
+    private UiLifecycleHelper     helper;
 
     public enum Fragments {
         PROFILE("Profile"), SHARE("Share to Fb"), TWITTER("Twitter Timeline"), LOGOUT(
@@ -45,6 +54,30 @@ public class MenuActivity extends Activity {
         setContentView(R.layout.activity_menu);
         setUi();
 
+        helper = new UiLifecycleHelper(this, callback);
+        helper.onCreate(savedInstanceState);
+        showFragment(Fragments.PROFILE);
+
+    }
+
+    private void showFragment(Fragments fragments) {
+        Fragment f;
+        switch (fragments) {
+            case PROFILE:
+                f = new ProfileFragments();
+
+                break;
+            case SHARE:
+                f = new ShareFragment();
+                break;
+
+            default:
+                f = new ProfileFragments();
+                break;
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.content_frame, f).commit();
+        drawerLayout.closeDrawer(listViewDrawer);
     }
 
     @Override
@@ -82,7 +115,24 @@ public class MenuActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                     long arg3) {
-                // TODO Auto-generated method stub
+                switch (arg2) {
+                    case 0:
+                        showFragment(Fragments.PROFILE);
+                        break;
+                    case 1:
+                        showFragment(Fragments.SHARE);
+                        break;
+                    case 2:
+                        showFragment(Fragments.TWITTER);
+                        break;
+                    case 3:
+                        Session.getActiveSession()
+                                .closeAndClearTokenInformation();
+                        MenuActivity.this.finish();
+                        break;
+                    default:
+                        break;
+                }
 
             }
         });
@@ -114,6 +164,35 @@ public class MenuActivity extends Activity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
 
+    }
+
+    private Session.StatusCallback callback = new Session.StatusCallback() {
+
+                                                @Override
+                                                public void call(
+                                                        Session session,
+                                                        SessionState state,
+                                                        Exception exception) {
+
+                                                    onSessionStateChanged(
+                                                            session, state,
+                                                            exception);
+                                                }
+                                            };
+
+    private void onSessionStateChanged(Session session, SessionState state,
+            Exception exception) {
+        if (isResumed) {
+
+            if (state.isOpened()) {
+
+            } else if (state.isClosed()) {
+
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+
+            }
+        }
     }
 
 }
