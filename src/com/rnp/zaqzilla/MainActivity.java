@@ -30,8 +30,8 @@ public class MainActivity extends FragmentActivity {
         helper = new UiLifecycleHelper(this, callback);
         helper.onCreate(savedInstanceState);
        /* button = (LoginButton) findViewById(R.id.login_button);
-        button.setReadPermissions(Arrays.asList("user_location",
-                "publish_actions"));*/
+        button.setReadPermissions(Arrays.asList("public_profile",
+                "user_location","user_birthday"));*/
 
     }
 

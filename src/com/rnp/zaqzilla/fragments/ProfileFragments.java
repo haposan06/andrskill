@@ -1,12 +1,23 @@
 package com.rnp.zaqzilla.fragments;
 
-import java.text.SimpleDateFormat;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.Request;
@@ -15,29 +26,39 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphUser;
-import com.facebook.widget.ProfilePictureView;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewCallback;
+import com.koushikdutta.urlimageviewhelper.UrlImageViewHelper;
 import com.rnp.zaqzilla.R;
+import com.rnp.zaqzilla.helper.InternalStorage;
+import com.rnp.zaqzilla.helper.SerializaleObject;
 
 public class ProfileFragments extends Fragment {
 
-    private ProfilePictureView     pictureView;
+    private final String           KEY_USER_OBJECT = "1";
+    private final String           PROFILE_IMAGE   = "2";
+
+    private TextView               textAbout;
+    private ImageView              imgProfile;
     private TextView               textName;
     private TextView               textLocation;
     private TextView               textGenderBirth;
     private UiLifecycleHelper      lifecycleHelper;
-    private Session.StatusCallback callback = new Session.StatusCallback() {
+    private Session.StatusCallback callback        = new Session.StatusCallback() {
 
-                                                @Override
-                                                public void call(
-                                                        Session session,
-                                                        SessionState state,
-                                                        Exception exception) {
-                                                    onSessionStateChange(
-                                                            session, state,
-                                                            exception);
+                                                       @Override
+                                                       public
+                                                               void
+                                                               call(Session session,
+                                                                       SessionState state,
+                                                                       Exception exception) {
 
-                                                }
-                                            };
+                                                           onSessionStateChange(
+                                                                   session,
+                                                                   state,
+                                                                   exception);
+
+                                                       }
+                                                   };
 
     @Override
     public void onCreate(Bundle state) {
@@ -72,14 +93,44 @@ public class ProfileFragments extends Fragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.profile, container, false);
 
-        pictureView = (ProfilePictureView) v
-                .findViewById(R.id.selection_profile_pic);
-        pictureView.setPresetSize(ProfilePictureView.CUSTOM);
-        pictureView.setCropped(true);
+        imgProfile = (ImageView) v.findViewById(R.id.imgPofile);
 
         textName = (TextView) v.findViewById(R.id.selection_user_name);
         textLocation = (TextView) v.findViewById(R.id.location);
         textGenderBirth = (TextView) v.findViewById(R.id.genderAndBirthday);
+        textAbout = (TextView) v.findViewById(R.id.about);
+
+        try {
+
+            // get from cache and put to view
+            SerializaleObject so = (SerializaleObject) InternalStorage
+                    .readObject(getActivity(), KEY_USER_OBJECT);
+
+            textName.setText(so.getName());
+
+            textLocation.setText(so.getLocation());
+
+            textGenderBirth.setText(so.getGender()
+
+            + " " + so.getDate());
+
+            imgProfile.setImageDrawable(InternalStorage.readImage(
+                    getActivity(), PROFILE_IMAGE));
+
+            textAbout.setText(so.getAbout());
+        }
+
+        catch (IOException e) {
+
+            e.printStackTrace();
+        }
+
+        catch (ClassNotFoundException e) {
+
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Session session = Session.getActiveSession();
         if (session != null && session.isOpened()) {
@@ -98,26 +149,89 @@ public class ProfileFragments extends Fragment {
     }
 
     private void getMe(final Session session) {
+
+        // check required permission to read user data first
+        List<String> listPermission = session.getPermissions();
+        List<String> requiredPermission = Arrays.asList("user_location",
+                "user_status", "user_birthday", "user_about_me");
+        boolean requestNewPermission = false;
+        for (String string : requiredPermission) {
+            if (!listPermission.contains(string)) {
+                requestNewPermission = true;
+                break;
+            }
+        }
+        if (requestNewPermission) {
+            Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(
+                    this, requiredPermission);
+            session.requestNewReadPermissions(newPermissionsRequest);
+
+        }
+
+        // request facebook api to get the data
         Request request = Request.newMeRequest(session,
                 new Request.GraphUserCallback() {
 
                     @Override
                     public void onCompleted(GraphUser user, Response response) {
+
                         if (session == Session.getActiveSession()) {
                             if (user != null) {
 
                                 try {
-                                    SimpleDateFormat format = new SimpleDateFormat(
-                                            "DD mm yyyy");
 
-                                    pictureView.setProfileId(user.getId());
+                                    String url = "http://graph.facebook.com/"
+                                            + user.getId()
+                                            + "/picture?width=640&height=640";
+                                    final SerializaleObject so = new SerializaleObject();
+                                    so.setName(user.getName());
+                                    so.setAbout(user.getProperty("bio")
+                                            .toString());
+                                    so.setDate(user.getBirthday());
+                                    so.setLocation(user.getLocation().getName());
+                                    InternalStorage.writeObject(getActivity(),
+                                            KEY_USER_OBJECT, so);
+                                    UrlImageViewHelper.setUrlDrawable(
+                                            imgProfile, url,
+                                            new UrlImageViewCallback() {
+
+                                                @Override
+                                                public void onLoaded(
+                                                        ImageView arg0,
+                                                        Bitmap arg1,
+                                                        String arg2,
+                                                        boolean arg3) {
+                                                    so.setBitmap(arg1);
+                                                    try {
+                                                        InternalStorage
+                                                                .writeBitmap(
+                                                                        getActivity(),
+                                                                        PROFILE_IMAGE,
+                                                                        arg1);
+
+                                                    } catch (IOException e) {
+                                                        // TODO Auto-generated
+                                                        // catch block
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            });
                                     textName.setText(user.getName());
-                                    /*
-                                     * textLocation.setText(user.getLocation()
-                                     * .getName());
-                                     */
+
+                                    textLocation
+                                            .setText(user.getLocation() == null ? ""
+                                                    : user.getLocation()
+                                                            .getName());
+
                                     textGenderBirth.setText(user.getProperty(
-                                            "gender").toString());
+                                            "gender").toString()
+
+                                            + " " + user.getBirthday() == null ? ""
+                                            : user.getBirthday());
+
+                                    textAbout.setText(user.getProperty("bio")
+                                            .toString());
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }

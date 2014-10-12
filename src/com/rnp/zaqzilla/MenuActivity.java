@@ -26,6 +26,7 @@ import com.facebook.UiLifecycleHelper;
 import com.rnp.zaqzilla.fragments.ProfileFragments;
 import com.rnp.zaqzilla.fragments.ShareFragment;
 import com.rnp.zaqzilla.fragments.TimelineFragments;
+import com.rnp.zaqzilla.helper.InternalStorage;
 
 public class MenuActivity extends FragmentActivity {
     private DrawerLayout          drawerLayout;
@@ -35,8 +36,8 @@ public class MenuActivity extends FragmentActivity {
     private UiLifecycleHelper     helper;
 
     public enum Fragments {
-        PROFILE("Profile"), SHARE("Share to Facebook"), TWITTER("Twitter Timeline"), LOGOUT(
-                "Logout");
+        PROFILE("Profile"), SHARE("Share to Facebook"), TWITTER(
+                "Twitter Timeline"), LOGOUT("Logout");
 
         private final String value;
 
@@ -129,6 +130,8 @@ public class MenuActivity extends FragmentActivity {
                         showFragment(Fragments.TWITTER);
                         break;
                     case 3:
+                        // clear cache
+                        InternalStorage.clear(MenuActivity.this);
                         Session.getActiveSession()
                                 .closeAndClearTokenInformation();
                         MenuActivity.this.finish();
@@ -140,7 +143,7 @@ public class MenuActivity extends FragmentActivity {
             }
         });
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.icon,
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_launcher,
                 R.string.drawer_open, R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View v) {
