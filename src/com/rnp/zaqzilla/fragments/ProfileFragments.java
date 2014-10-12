@@ -122,7 +122,7 @@ public class ProfileFragments extends Fragment {
 
         catch (IOException e) {
 
-            e.printStackTrace();
+            System.out.println("cahce empty or unaccessible");
         }
 
         catch (ClassNotFoundException e) {
@@ -151,22 +151,24 @@ public class ProfileFragments extends Fragment {
     private void getMe(final Session session) {
 
         // check required permission to read user data first
-        List<String> listPermission = session.getPermissions();
-        List<String> requiredPermission = Arrays.asList("user_location",
-                "user_status", "user_birthday", "user_about_me");
-        boolean requestNewPermission = false;
-        for (String string : requiredPermission) {
-            if (!listPermission.contains(string)) {
-                requestNewPermission = true;
-                break;
-            }
-        }
-        if (requestNewPermission) {
-            Session.NewPermissionsRequest newPermissionsRequest = new Session.NewPermissionsRequest(
-                    this, requiredPermission);
-            session.requestNewReadPermissions(newPermissionsRequest);
-
-        }
+        /*
+         * List<String> listPermission = session.getPermissions();
+         * List<String> requiredPermission = Arrays.asList("user_location",
+         * "user_status", "user_birthday", "user_about_me");
+         * boolean requestNewPermission = false;
+         * for (String string : requiredPermission) {
+         * if (!listPermission.contains(string)) {
+         * requestNewPermission = true;
+         * break;
+         * }
+         * }
+         * if (requestNewPermission && ) {
+         * Session.NewPermissionsRequest newPermissionsRequest = new
+         * Session.NewPermissionsRequest(
+         * this, requiredPermission);
+         * session.requestNewReadPermissions(newPermissionsRequest);
+         * }
+         */
 
         // request facebook api to get the data
         Request request = Request.newMeRequest(session,
@@ -185,10 +187,13 @@ public class ProfileFragments extends Fragment {
                                             + "/picture?width=640&height=640";
                                     final SerializaleObject so = new SerializaleObject();
                                     so.setName(user.getName());
-                                    so.setAbout(user.getProperty("bio")
-                                            .toString());
-                                    so.setDate(user.getBirthday());
-                                    so.setLocation(user.getLocation().getName());
+                                    so.setAbout(user.getProperty("bio") == null ? ""
+                                            : user.getProperty("bio")
+                                                    .toString());
+                                    so.setDate(user.getBirthday() == null ? ""
+                                            : user.getBirthday());
+                                    so.setLocation(user.getLocation() == null ? ""
+                                            : user.getLocation().getName());
                                     InternalStorage.writeObject(getActivity(),
                                             KEY_USER_OBJECT, so);
                                     UrlImageViewHelper.setUrlDrawable(
@@ -223,15 +228,16 @@ public class ProfileFragments extends Fragment {
                                             .setText(user.getLocation() == null ? ""
                                                     : user.getLocation()
                                                             .getName());
+                                    String gender=user.getProperty(
+                                            "gender").toString();
+                                    String birthday= user.getBirthday() == null ? ""
+                                            : user.getBirthday();
+                                    textGenderBirth.setText(gender+ " "+ birthday );
 
-                                    textGenderBirth.setText(user.getProperty(
-                                            "gender").toString()
-
-                                            + " " + user.getBirthday() == null ? ""
-                                            : user.getBirthday());
-
-                                    textAbout.setText(user.getProperty("bio")
-                                            .toString());
+                                    textAbout
+                                            .setText(user.getProperty("bio") == null ? ""
+                                                    : user.getProperty("bio")
+                                                            .toString());
                                 } catch (Exception ex) {
                                     ex.printStackTrace();
                                 }

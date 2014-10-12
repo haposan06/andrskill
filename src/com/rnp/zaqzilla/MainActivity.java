@@ -29,9 +29,9 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         helper = new UiLifecycleHelper(this, callback);
         helper.onCreate(savedInstanceState);
-       /* button = (LoginButton) findViewById(R.id.login_button);
+        button = (LoginButton) findViewById(R.id.login_button);
         button.setReadPermissions(Arrays.asList("public_profile",
-                "user_location","user_birthday"));*/
+                "user_location", "user_birthday"));
 
     }
 
