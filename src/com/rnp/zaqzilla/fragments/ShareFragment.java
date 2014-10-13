@@ -103,6 +103,7 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
+                button.setEnabled(false);
                 publish();
             }
         });
@@ -156,6 +157,7 @@ public class ShareFragment extends Fragment {
                                 .show();
 
                     }
+                    button.setEnabled(true);
 
                 }
             };

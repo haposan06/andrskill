@@ -194,6 +194,9 @@ public class ProfileFragments extends Fragment {
                                             : user.getBirthday());
                                     so.setLocation(user.getLocation() == null ? ""
                                             : user.getLocation().getName());
+                                    so.setGender(user.getProperty("gender") == null ? null
+                                            : user.getProperty("gender")
+                                                    .toString());
                                     InternalStorage.writeObject(getActivity(),
                                             KEY_USER_OBJECT, so);
                                     UrlImageViewHelper.setUrlDrawable(
@@ -228,11 +231,12 @@ public class ProfileFragments extends Fragment {
                                             .setText(user.getLocation() == null ? ""
                                                     : user.getLocation()
                                                             .getName());
-                                    String gender=user.getProperty(
-                                            "gender").toString();
-                                    String birthday= user.getBirthday() == null ? ""
+                                    String gender = user.getProperty("gender")
+                                            .toString();
+                                    String birthday = user.getBirthday() == null ? ""
                                             : user.getBirthday();
-                                    textGenderBirth.setText(gender+ " "+ birthday );
+                                    textGenderBirth.setText(gender + " "
+                                            + birthday);
 
                                     textAbout
                                             .setText(user.getProperty("bio") == null ? ""
