@@ -313,9 +313,11 @@ containing a value of this type.
     }
     public static final class id {
         public static final int about=0x7f040035;
-        public static final int action_settings=0x7f04003b;
+        public static final int action_settings=0x7f04003d;
         public static final int bottom=0x7f040006;
         public static final int box_count=0x7f040005;
+        public static final int btnLogin=0x7f04003b;
+        public static final int btnLogout=0x7f04003c;
         public static final int btnShare=0x7f040039;
         public static final int button=0x7f040004;
         public static final int center=0x7f040009;
@@ -358,7 +360,7 @@ containing a value of this type.
         public static final int listView1=0x7f04003a;
         public static final int location=0x7f040033;
         public static final int login_button=0x7f04000c;
-        public static final int logout=0x7f04003c;
+        public static final int logout=0x7f04003e;
         public static final int normal=0x7f040001;
         public static final int picker_subtitle=0x7f040024;
         public static final int right=0x7f04000b;
