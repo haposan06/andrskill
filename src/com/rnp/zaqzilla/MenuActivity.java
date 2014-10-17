@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -26,6 +27,7 @@ import com.facebook.UiLifecycleHelper;
 import com.rnp.zaqzilla.fragments.ProfileFragments;
 import com.rnp.zaqzilla.fragments.ShareFragment;
 import com.rnp.zaqzilla.fragments.TimelineFragments;
+import com.rnp.zaqzilla.fragments.TimelineFragments.Const;
 import com.rnp.zaqzilla.helper.InternalStorage;
 
 public class MenuActivity extends FragmentActivity {
@@ -58,7 +60,14 @@ public class MenuActivity extends FragmentActivity {
 
         helper = new UiLifecycleHelper(this, callback);
         helper.onCreate(savedInstanceState);
-        showFragment(Fragments.PROFILE);
+        Uri uri = getIntent().getData();
+        Boolean isFromTwitterLogin = getIntent().getBooleanExtra(
+                "isFromTwitterLogin", false);
+        if (isFromTwitterLogin) {
+            showFragment(Fragments.TWITTER);
+        } else {
+            showFragment(Fragments.PROFILE);
+        }
 
     }
 
@@ -143,8 +152,9 @@ public class MenuActivity extends FragmentActivity {
             }
         });
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.drawable.ic_launcher,
-                R.string.drawer_open, R.string.drawer_close) {
+        toggle = new ActionBarDrawerToggle(this, drawerLayout,
+                R.drawable.ic_launcher, R.string.drawer_open,
+                R.string.drawer_close) {
             @Override
             public void onDrawerClosed(View v) {
                 super.onDrawerClosed(v);

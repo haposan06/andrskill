@@ -9,13 +9,14 @@
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" android:logo="@drawable/ic_launcher">
+        android:logo="@drawable/ic_launcher"
+        android:theme="@style/AppTheme" >
         <activity
             android:name="com.rnp.zaqzilla.MainActivity"
             android:label="@string/app_name" >
@@ -35,10 +36,25 @@
         <activity
             android:name="com.rnp.zaqzilla.MenuActivity"
             android:label="@string/app_name" >
+            
         </activity>
         <activity
             android:name="com.rnp.zaqzilla.StatusViewActivity"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.rnp.zaqzilla.TwitterLogin"
+            android:label="@string/title_activity_twitter_login" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="t4jsample"
+                    android:scheme="oauth" />
+            </intent-filter>
         </activity>
     </application>
 

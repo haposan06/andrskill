@@ -18,5 +18,6 @@
     <string name="hello">Hello!</string>
     <string name="welcome">welcome to Zaqzilla</string>
     <string name="title_activity_status_view">StatusViewActivity</string>
+    <string name="title_activity_twitter_login">TwitterLogin</string>
 
 </resources>
